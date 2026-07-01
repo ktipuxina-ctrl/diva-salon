@@ -4,10 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DIVA — салон красоты в Москве</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="DIVA — премиум-салон красоты в центре Москвы. Волосы, ногти, брови и ресницы. Услуги «в 4 руки», мастера с опытом 10+ лет. Онлайн-запись и подарок за первый визит.">
+<link rel="canonical" href="https://diva-beauty.9n6.ru/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DIVA — салон красоты в Москве">
+<meta property="og:description" content="Премиум-уход, мастера 10+ лет и услуги «в 4 руки». Онлайн-запись и подарок за первое посещение.">
+<meta property="og:image" content="https://diva-beauty.9n6.ru/images/interior.jpg">
+<meta property="og:url" content="https://diva-beauty.9n6.ru/">
+<meta name="theme-color" content="#c9a24b">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
+@font-face{font-family:'Cormorant Garamond';src:url('fonts/cormorant.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:'Jost';src:url('fonts/jost.woff2') format('woff2');font-weight:300 600;font-style:normal;font-display:swap}
 :root{
   --gold:#c9a24b;
   --gold-light:#e3c986;
@@ -15,7 +23,7 @@
   --champ:#f7f1e4;
   --milk:#fcfaf4;
   --ink:#2b2620;
-  --ink-soft:#6b6256;
+  --ink-soft:#5e564a;
   --line:#e7ddc7;
   --radius:18px;
   --shadow:0 18px 50px rgba(160,130,60,.12);
@@ -125,7 +133,7 @@ header.scrolled{background:rgba(252,250,244,.9);backdrop-filter:blur(12px);box-s
 /* wheel / bonus */
 .bonus{background:radial-gradient(100% 100% at 50% 0%,var(--gold-soft),var(--champ))}
 .wheel-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:40px}
-.wheel-box{position:relative;width:340px;height:340px;margin:0 auto}
+.wheel-box{position:relative;width:min(440px,90%);aspect-ratio:1/1;margin:0 auto}
 .wheel{width:100%;height:100%;border-radius:50%;border:10px solid #fff;box-shadow:var(--shadow);transition:transform 4.5s cubic-bezier(.17,.67,.21,1)}
 .wheel-pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:34px;color:var(--gold);z-index:5;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2))}
 .wheel-center{position:absolute;top:50%;left:50%;width:70px;height:70px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-weight:700;color:var(--gold);z-index:4;box-shadow:0 4px 14px rgba(0,0,0,.12)}
@@ -133,6 +141,10 @@ header.scrolled{background:rgba(252,250,244,.9);backdrop-filter:blur(12px);box-s
 .bonus-result.show{animation:pop .5s}
 .bonus-form input{width:100%;padding:14px 18px;margin-bottom:14px;border:1.5px solid var(--line);border-radius:50px;font-family:'Jost';font-size:15px;background:var(--milk);transition:.3s}
 .bonus-form input:focus{outline:none;border-color:var(--gold)}
+.ya-form{border-radius:var(--radius);overflow:hidden;background:var(--milk);border:1px solid var(--line);box-shadow:var(--shadow);padding:8px}
+.ya-form iframe{width:100%;min-height:520px;border:0;display:block;background:transparent}
+.consent-note{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:12px;text-align:center}
+.consent-note a{color:var(--gold);text-decoration:underline}
 @keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
 
 /* portfolio */
@@ -158,7 +170,8 @@ header.scrolled{background:rgba(252,250,244,.9);backdrop-filter:blur(12px);box-s
 .contact-item{margin-bottom:24px}
 .contact-item .lbl{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .contact-item .val{font-size:20px}
-.map{height:360px;border-radius:var(--radius)}
+.map{height:360px;border-radius:var(--radius);overflow:hidden}
+.map iframe{width:100%;height:100%;border:0;display:block}
 .socials{display:flex;gap:14px;margin-top:20px}
 .socials a{width:48px;height:48px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);transition:.3s}
 .socials a:hover{background:var(--gold);color:#fff;transform:translateY(-3px)}
@@ -178,7 +191,15 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
 /* responsive */
 @media(max-width:900px){
   .menu{display:none}
+  .menu.open{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:rgba(252,250,244,.98);backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(160,130,60,.14);padding:8px 24px 16px}
+  .menu.open li{padding:14px 0;border-bottom:1px solid var(--line)}
+  .menu.open li:last-child{border:none}
+  header{position:fixed}
+  .nav{position:relative}
   .burger{display:flex}
+  .burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.active span:nth-child(2){opacity:0}
+  .burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .hero-grid{grid-template-columns:1fr}
   .hero-visual{height:380px;margin-top:20px}
   .feat-grid{grid-template-columns:1fr 1fr}
@@ -225,8 +246,8 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
       </div>
     </div>
     <div class="hero-visual">
-      <div class="ph hv1"><img src="images/interior.jpg" alt="Интерьер салона DIVA"></div>
-      <div class="ph hv2"><img src="images/moment.jpg" alt="Момент услуги"></div>
+      <div class="ph hv1"><img fetchpriority="high" src="images/interior.jpg" alt="Интерьер салона DIVA"></div>
+      <div class="ph hv2"><img fetchpriority="high" src="images/moment.jpg" alt="Момент услуги"></div>
     </div>
   </div>
   <div class="scroll-hint">листай вниз ↓</div>
@@ -254,7 +275,7 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
     </div>
     <div class="svc">
       <div class="svc-card reveal">
-        <div class="ph svc-img"><img src="images/hair.jpg" alt="Услуги для волос"></div>
+        <div class="ph svc-img"><img loading="lazy" decoding="async" src="images/hair.jpg" alt="Услуги для волос"></div>
         <div class="svc-body">
           <h3>Волосы <span class="tag">HAIR</span></h3>
           <ul class="svc-list">
@@ -266,7 +287,7 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
         </div>
       </div>
       <div class="svc-card reveal">
-        <div class="ph svc-img"><img src="images/nails.jpg" alt="Маникюр и педикюр"></div>
+        <div class="ph svc-img"><img loading="lazy" decoding="async" src="images/nails.jpg" alt="Маникюр и педикюр"></div>
         <div class="svc-body">
           <h3>Ногти <span class="tag">NAILS</span></h3>
           <ul class="svc-list">
@@ -278,7 +299,7 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
         </div>
       </div>
       <div class="svc-card wide reveal">
-        <div class="ph svc-img"><img src="images/brows.jpg" alt="Брови и ресницы"></div>
+        <div class="ph svc-img"><img loading="lazy" decoding="async" src="images/brows.jpg" alt="Брови и ресницы"></div>
         <div class="svc-body">
           <h3>Брови и ресницы <span class="tag">BROWS &amp; LASHES</span></h3>
           <ul class="svc-list">
@@ -306,7 +327,7 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
           <div><div class="num">2</div>мастера для тебя</div>
         </div>
       </div>
-      <div class="ph fh-visual"><img src="images/fourhands.jpg" alt="Услуги в 4 руки"></div>
+      <div class="ph fh-visual"><img loading="lazy" decoding="async" src="images/fourhands.jpg" alt="Услуги в 4 руки"></div>
     </div>
   </div>
 </section>
@@ -319,11 +340,11 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
     <p class="lead">Профессионалы, которым доверяют. Листайте, чтобы познакомиться.</p>
     <div class="carousel">
       <div class="track" id="masterTrack">
-        <div class="master reveal"><div class="ph"><img src="images/master-1.jpg" alt="Алина Соколова"></div><div class="master-body"><h3>Алина Соколова</h3><div class="spec">Колорист-стилист</div><div class="exp">Опыт 12 лет · окрашивание, сложные техники</div></div></div>
-        <div class="master reveal"><div class="ph"><img src="images/master-2.jpg" alt="Марина Лебедева"></div><div class="master-body"><h3>Марина Лебедева</h3><div class="spec">Nail-мастер</div><div class="exp">Опыт 10 лет · аппаратный маникюр, дизайн</div></div></div>
-        <div class="master reveal"><div class="ph"><img src="images/master-3.jpg" alt="София Орлова"></div><div class="master-body"><h3>София Орлова</h3><div class="spec">Brow &amp; Lash эксперт</div><div class="exp">Опыт 11 лет · ламинирование, наращивание</div></div></div>
-        <div class="master reveal"><div class="ph"><img src="images/master-4.jpg" alt="Ева Кузнецова"></div><div class="master-body"><h3>Ева Кузнецова</h3><div class="spec">Стилист по волосам</div><div class="exp">Опыт 14 лет · стрижки, уходы, стайлинг</div></div></div>
-        <div class="master reveal"><div class="ph"><img src="images/master-5.jpg" alt="Дарья Морозова"></div><div class="master-body"><h3>Дарья Морозова</h3><div class="spec">Топ nail-мастер</div><div class="exp">Опыт 13 лет · укрепление, японский маникюр</div></div></div>
+        <div class="master reveal"><div class="ph"><img loading="lazy" decoding="async" src="images/master-1.jpg" alt="Алина Соколова"></div><div class="master-body"><h3>Алина Соколова</h3><div class="spec">Колорист-стилист</div><div class="exp">Опыт 12 лет · окрашивание, сложные техники</div></div></div>
+        <div class="master reveal"><div class="ph"><img loading="lazy" decoding="async" src="images/master-2.jpg" alt="Марина Лебедева"></div><div class="master-body"><h3>Марина Лебедева</h3><div class="spec">Nail-мастер</div><div class="exp">Опыт 10 лет · аппаратный маникюр, дизайн</div></div></div>
+        <div class="master reveal"><div class="ph"><img loading="lazy" decoding="async" src="images/master-3.jpg" alt="София Орлова"></div><div class="master-body"><h3>София Орлова</h3><div class="spec">Brow &amp; Lash эксперт</div><div class="exp">Опыт 11 лет · ламинирование, наращивание</div></div></div>
+        <div class="master reveal"><div class="ph"><img loading="lazy" decoding="async" src="images/master-4.jpg" alt="Ева Кузнецова"></div><div class="master-body"><h3>Ева Кузнецова</h3><div class="spec">Стилист по волосам</div><div class="exp">Опыт 14 лет · стрижки, уходы, стайлинг</div></div></div>
+        <div class="master reveal"><div class="ph"><img loading="lazy" decoding="async" src="images/master-5.jpg" alt="Дарья Морозова"></div><div class="master-body"><h3>Дарья Морозова</h3><div class="spec">Топ nail-мастер</div><div class="exp">Опыт 13 лет · укрепление, японский маникюр</div></div></div>
       </div>
       <div class="car-btns">
         <button class="car-btn" id="mPrev">←</button>
@@ -348,23 +369,17 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
         <div class="wheel-center">DIVA</div>
       </div>
       <div>
-        <!-- ШАГ 1: форма записи -->
-        <form class="bonus-form" id="bonusForm">
-          <p style="color:var(--ink-soft);margin-bottom:18px">Оставьте контакт — мы свяжемся для записи, и колесо удачи откроется 👇</p>
-          <input type="text" id="bName" placeholder="Ваше имя" required>
-          <input type="tel" id="bPhone" placeholder="Телефон" required>
-          <button type="submit" class="btn btn-gold" style="width:100%">Записаться и открыть колесо</button>
-        </form>
-        <!-- ШАГ 2: колесо (скрыто до записи) -->
-        <div class="bonus-stage" id="bonusStage" style="display:none">
-          <div class="bonus-result" id="bonusResult">Колесо открыто 🎁 Крутите!</div>
+        <!-- ШАГ 1: крутим колесо -->
+        <div class="bonus-stage" id="bonusStage">
+          <div class="bonus-result" id="bonusResult">Крутите колесо — узнайте свой бонус 🎁</div>
           <button class="btn btn-gold" id="spinBtn">Крутить колесо</button>
-          <p style="margin-top:18px;color:var(--ink-soft);font-size:14px">Бонус действует при первом посещении. Назовите его администратору.</p>
+          <p style="margin-top:18px;color:var(--ink-soft);font-size:14px">Колесо крутится один раз. После — оставьте контакт, чтобы забрать бонус.</p>
         </div>
-        <!-- если уже крутил -->
-        <div class="bonus-done" id="bonusDone" style="display:none">
-          <div class="bonus-result show" id="bonusDoneText"></div>
-          <p style="color:var(--ink-soft);font-size:14px">Вы уже получили свой бонус. До встречи в DIVA! 💛</p>
+        <!-- ШАГ 2: запись, появляется после кручения -->
+        <div class="bonus-form" id="bonusForm" style="display:none">
+          <p style="color:var(--ink-soft);margin-bottom:22px">Остался один шаг — оставьте контакт, и мы свяжемся для записи. Ваш бонус и код уже сохранены в заявке 👇</p>
+          <a class="btn btn-gold" id="bonusBtn" href="#" style="width:100%;font-size:17px;padding:18px 34px">Записаться и забрать бонус →</a>
+          <p class="consent-note" style="margin-top:16px">Нажимая кнопку, вы соглашаетесь на обработку персональных данных и принимаете <a href="privacy.html" target="_blank">Политику конфиденциальности</a>.</p>
         </div>
       </div>
     </div>
@@ -378,14 +393,14 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
     <h2 class="section-title">Наши работы</h2>
     <p class="lead">Несколько примеров того, что создают наши мастера.</p>
     <div class="gallery">
-      <div class="ph big reveal"><img src="images/work-coloring.jpg" alt="Окрашивание"></div>
-      <div class="ph reveal"><img src="images/work-manicure.jpg" alt="Маникюр"></div>
-      <div class="ph reveal"><img src="images/work-brows.jpg" alt="Брови"></div>
-      <div class="ph reveal"><img src="images/work-styling.jpg" alt="Укладка"></div>
-      <div class="ph reveal"><img src="images/work-lashes.jpg" alt="Ресницы"></div>
-      <div class="ph big reveal"><img src="images/work-haircut.jpg" alt="Стрижка и стайлинг"></div>
-      <div class="ph reveal"><img src="images/work-design.jpg" alt="Дизайн ногтей"></div>
-      <div class="ph reveal"><img src="images/work-lamination.jpg" alt="Ламинирование"></div>
+      <div class="ph big reveal"><img loading="lazy" decoding="async" src="images/work-coloring.jpg" alt="Окрашивание"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-manicure.jpg" alt="Маникюр"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-brows.jpg" alt="Брови"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-styling.jpg" alt="Укладка"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-lashes.jpg" alt="Ресницы"></div>
+      <div class="ph big reveal"><img loading="lazy" decoding="async" src="images/work-haircut.jpg" alt="Стрижка и стайлинг"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-design.jpg" alt="Дизайн ногтей"></div>
+      <div class="ph reveal"><img loading="lazy" decoding="async" src="images/work-lamination.jpg" alt="Ламинирование"></div>
     </div>
   </div>
 </section>
@@ -421,7 +436,7 @@ footer .copy{font-size:13px;opacity:.6;margin-top:24px}
           <a href="#" title="WhatsApp">✆</a>
         </div>
       </div>
-      <div class="ph map"><img src="images/map.jpg" alt="Карта проезда к салону DIVA"></div>
+      <div class="ph map"><iframe src="https://yandex.ru/map-widget/v1/?ll=37.593780%2C55.762216&z=17&pt=37.593780%2C55.762216%2Cpm2rdm" title="Карта проезда к салону DIVA" allowfullscreen loading="lazy"></iframe></div>
     </div>
   </div>
 </section>
@@ -454,8 +469,12 @@ const track=document.getElementById('masterTrack');
 document.getElementById('mNext').onclick=()=>track.scrollBy({left:306,behavior:'smooth'});
 document.getElementById('mPrev').onclick=()=>track.scrollBy({left:-306,behavior:'smooth'});
 
-// burger (scroll to contacts as simple menu)
-document.getElementById('burger').onclick=()=>document.getElementById('services').scrollIntoView({behavior:'smooth'});
+// burger — раскрывает/прячет мобильное меню
+const burger=document.getElementById('burger');
+const menu=document.querySelector('.menu');
+burger.onclick=()=>{const open=menu.classList.toggle('open');burger.classList.toggle('active',open)};
+// закрыть меню после выбора раздела
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.classList.remove('active')});
 
 // WHEEL OF FORTUNE
 const prizes=['Скидка 25%','Уход Olaplex','Скидка 50%','Дизайн ногтей','Брови −50%','Японский маникюр','Окрашивание хной −50%'];
@@ -476,44 +495,61 @@ function draw(){
 }
 draw();
 let spinning=false;
-const STORE='diva_bonus';
+const STORE='diva_bonus';   // приз
+const STORE_CODE='diva_code'; // уникальный код
 
-// показать нужный экран в зависимости от состояния
-function refreshBonus(){
-  const saved=localStorage.getItem(STORE);
-  if(saved){
-    bonusForm.style.display='none';
-    bonusStage.style.display='none';
-    bonusDone.style.display='block';
-    document.getElementById('bonusDoneText').textContent='🎉 Ваш бонус: '+saved;
-  }
-}
+// настройки Яндекс Формы
+const FORM_FILL='https://forms.yandex.ru/cloud/6a429c801f1eb5082c473d8f/'; // форма открывается отдельной страницей
+const BONUS_FIELD='bonus'; // скрытое поле «Бонус (колесо удачи)»
 const bonusForm=document.getElementById('bonusForm');
-const bonusStage=document.getElementById('bonusStage');
-const bonusDone=document.getElementById('bonusDone');
-refreshBonus();
+const bonusBtn=document.getElementById('bonusBtn');
 
-// ШАГ 1 — запись открывает колесо
-bonusForm.addEventListener('submit',e=>{
-  e.preventDefault();
-  // здесь позже заявка уйдёт в систему записи (YCLIENTS и т.п.)
-  bonusForm.style.display='none';
-  bonusStage.style.display='block';
-});
+// сгенерировать короткий уникальный код (без похожих символов 0/O, 1/I)
+function makeCode(){
+  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s='';
+  for(let i=0;i<4;i++) s+=ch[Math.floor(Math.random()*ch.length)];
+  return 'DIVA-'+s;
+}
 
-// ШАГ 2 — кручение (один раз)
+// показать форму с уже вписанным призом и кодом
+function showForm(prize,code){
+  const full=prize+' · код '+code;
+  const res=document.getElementById('bonusResult');
+  res.innerHTML='🎉 Ваш бонус: '+prize+'<br><span style="font-size:.6em;letter-spacing:.1em">код '+code+'</span>';
+  res.classList.add('show');
+  document.getElementById('spinBtn').style.display='none';
+  bonusBtn.href=FORM_FILL+'?'+BONUS_FIELD+'='+encodeURIComponent(full);
+  bonusForm.style.display='block';
+}
+
+// если уже крутил — поворачиваем колесо на его приз и показываем форму
+const saved=localStorage.getItem(STORE);
+if(saved){
+  let code=localStorage.getItem(STORE_CODE);
+  if(!code){ code=makeCode(); localStorage.setItem(STORE_CODE,code); }
+  const idx=prizes.indexOf(saved);
+  if(idx>=0){
+    cv.style.transition='none';
+    cv.style.transform='rotate('+(-Math.PI/2-(idx*ang+ang/2))+'rad)';
+  }
+  showForm(saved,code);
+}
+
+// ШАГ 1 — кручение (один раз), затем появляется форма
 document.getElementById('spinBtn').onclick=()=>{
   if(spinning)return;spinning=true;
   const win=Math.floor(Math.random()*seg);
   const turns=6*Math.PI*2;
   const target=turns+(-Math.PI/2 - (win*ang+ang/2));
   cv.style.transform='rotate('+target+'rad)';
-  const res=document.getElementById('bonusResult');
-  res.classList.remove('show');
+  document.getElementById('bonusResult').classList.remove('show');
   setTimeout(()=>{
-    res.textContent='🎉 Ваш бонус: '+prizes[win]+'!';
-    res.classList.add('show');spinning=false;
+    const code=makeCode();
     localStorage.setItem(STORE,prizes[win]); // запомнить — повторно не выбить
+    localStorage.setItem(STORE_CODE,code);
+    showForm(prizes[win],code);
+    spinning=false;
   },4600);
 };
 </script>
